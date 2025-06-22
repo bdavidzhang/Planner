@@ -64,5 +64,69 @@ Provide a clear, concise list of habits, categorized if necessary, and explain b
             print(f"An error occurred while building habits: {e}")
             return "Could not generate habits."
 
-        
-            return {}
+
+    def generate_monthly_plan(self, long_term_goal: str) -> str:
+        prompt = f"""You are a strategic planner. Based on the long-term goal, create a detailed monthly plan for the first three months. Outline specific, actionable steps for each month.
+
+Long-term Goal: {long_term_goal}
+
+Provide a clear, structured monthly plan.
+"""
+        try:
+            response = self.client.chat.completions.create(
+                model=self.default_model,
+                messages=[
+                    {"role": "system", "content": "You are a helpful assistant that creates monthly plans."},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.7,
+                max_tokens=1000
+            )
+            return response.choices[0].message.content
+        except Exception as e:
+            print(f"An error occurred while generating the monthly plan: {e}")
+            return "Could not generate monthly plan."
+
+    def generate_daily_plan(self, long_term_goal: str) -> str:
+        prompt = f"""You are a productivity expert. Create a daily plan for a typical day that aligns with the long-term goal. Include a schedule with specific tasks and time blocks.
+
+Long-term Goal: {long_term_goal}
+
+Provide a detailed daily plan from morning to evening.
+"""
+        try:
+            response = self.client.chat.completions.create(
+                model=self.default_model,
+                messages=[
+                    {"role": "system", "content": "You are a helpful assistant that creates daily plans."},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.7,
+                max_tokens=1000
+            )
+            return response.choices[0].message.content
+        except Exception as e:
+            print(f"An error occurred while generating the daily plan: {e}")
+            return "Could not generate daily plan."
+
+    def generate_short_term_goals(self, long_term_goal: str) -> str:
+        prompt = f"""You are a goal-setting expert. Based on the long-term goal, define 3-5 specific, measurable, achievable, relevant, and time-bound (SMART) short-term goals.
+
+Long-term Goal: {long_term_goal}
+
+List the short-term goals clearly.
+"""
+        try:
+            response = self.client.chat.completions.create(
+                model=self.default_model,
+                messages=[
+                    {"role": "system", "content": "You are a helpful assistant that sets short-term goals."},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.7,
+                max_tokens=500
+            )
+            return response.choices[0].message.content
+        except Exception as e:
+            print(f"An error occurred while generating short-term goals: {e}")
+            return "Could not generate short-term goals."

@@ -32,15 +32,41 @@ def main():
     long_term_goal = input("Please enter your long-term goal (e.g., 'Become a successful entrepreneur in 5 years'): ")
 
     print(f"\nBreaking down your goal: '{long_term_goal}'")
-    annual_plans = agent.generate_annual_plans(long_term_goal)
-    habits = agent.build_habits(long_term_goal)
 
+    # Generate plans
+    annual_plans = agent.generate_annual_plans(long_term_goal)
+
+    # Display plans
     if annual_plans:
         print("\nHere's your annual plan:")
         print(annual_plans)
     else:
         print("Could not generate annual plans. Please try again.")
 
+    monthly_plan = agent.generate_monthly_plan(long_term_goal)
+    if monthly_plan:
+        print("\n---")
+        print("\nHere's your monthly plan for the next 3 months:")
+        print(monthly_plan)
+    else:
+        print("Could not generate monthly plan. Please try again.")
+    daily_plan = agent.generate_daily_plan(long_term_goal)
+    if daily_plan:
+        print("\n---")
+        print("\nHere's a sample daily plan:")
+        print(daily_plan)
+    else:
+        print("Could not generate daily plan. Please try again.")
+
+    short_term_goals = agent.generate_short_term_goals(long_term_goal)
+    if short_term_goals:
+        print("\n---")
+        print("\nHere are some short-term goals to get you started:")
+        print(short_term_goals)
+    else:
+        print("Could not generate short-term goals. Please try again.")
+
+    habits = agent.build_habits(long_term_goal)
     if habits:
         print("\n---")
         print("\nHere's a system of habits to help you achieve your goal:")
